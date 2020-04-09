@@ -44,55 +44,49 @@ def GameLoop():
     lead_y = display_height/2
     lead_x_change = 0
     lead_y_change = 0
+while not gameExit:
+	    while gameOver == True: 
+	        gameDisplay.fill(white)
+	        message_to_screen("Game over, press C to play again or Q to quit.",red)
+	        pygame.display.update() 
 
-    while gameOver == True: 
-        gameDisplay.fill(white)
-        message_to_screen("Game over, press C to play again or Q to quit.",red)
-        pygame.display.update() 
+	        for event in pygame.event.get(): 
+	            # get key input
+	            if event.type == pygame.KEYDOWN:  
+	                # if keydown == q  
+	                if event.key == pygame.K_q:
+	                    gameExit = True 
+	                    gameOver = False  
+	                elif event.key == pygame.K_c: 
+	                    GameLoop()         
 
-        for event in pygame.event.get(): 
-            # get key input
-            if event.type == pygame.KEYDOWN:  
-                # if keydown == q  
-                if event.key == pygame.K_q:
-                    gameExit = True 
-                    gameOver = False  
-                elif event.key == pygame.C_q: 
-                    GameLoop()         
+	    while not gameExit:
+	        for event in pygame.event.get():
+	            if event.type == pygame.QUIT:
+	                gameExit = True
+	            if event.type == pygame.KEYDOWN:
+	                if event.key == pygame.K_LEFT:
+	                    lead_x_change = -block_size
+	                    lead_y_change = 0
+	                elif event.key == pygame.K_RIGHT:
+	                    lead_x_change = block_size
+	                    lead_y_change = 0
+	                elif event.key == pygame.K_UP:
+	                    lead_y_change = -block_size
+	                    lead_x_change = 0
+	                elif event.key == pygame.K_DOWN:
+	                    lead_y_change = block_size
+	                    lead_x_change = 0
+	                    lead_x_change = 0  
+	                # Detect keyup event        
+	                #if event.type == pygame.KEYUP: 
+	                        #if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT: 
+	                            #lead_x_change = 0 
 
-
-
-
-
-
-
-    while not gameExit:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                gameExit = True
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    lead_x_change = -block_size
-                    lead_y_change = 0
-                elif event.key == pygame.K_RIGHT:
-                    lead_x_change = block_size
-                    lead_y_change = 0
-                elif event.key == pygame.K_UP:
-                    lead_y_change = -block_size
-                    lead_x_change = 0
-                elif event.key == pygame.K_DOWN:
-                    lead_y_change = block_size
-                    lead_x_change = 0
-                    lead_x_change = 0  
-                # Detect keyup event        
-                #if event.type == pygame.KEYUP: 
-                        #if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT: 
-                            #lead_x_change = 0 
-
-        #Terminate if you leave screen 
-        if lead_x >= display_width or lead_x < 0 or lead_y >= display_height or lead_y < 0:
-            gameOver = True
-        
+	        #Terminate if you leave screen 
+	        if lead_x >= display_width or lead_x < 0 or lead_y >= display_height or lead_y < 0:
+	            gameOver = True
+	        
         # Update position on screen 
         lead_x += lead_x_change
         lead_y += lead_y_change
